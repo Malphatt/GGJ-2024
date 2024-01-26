@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     bool isGrounded = false;
     bool isRunning = false;
 
-    float walkSpeed = 25.0f;
-    float runSpeed = 50.0f;
+    float walkSpeed = 10.0f;
+    float runSpeed = 20.0f;
 
     float speed = 0.0f;
     float maxSpeed = 20.0f;
