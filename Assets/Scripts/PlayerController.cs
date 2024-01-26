@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     bool isGrounded = false;
     bool isRunning = false;
 
-    float walkSpeed = 10.0f;
-    float runSpeed = 20.0f;
+    float walkSpeed = 20.0f;
+    float runSpeed = 30.0f;
 
     float speed = 0.0f;
     float maxSpeed = 20.0f;
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!pv.IsMine) { return; }
         moveInput = context.ReadValue<Vector2>();
 
         if (context.phase == InputActionPhase.Started)
@@ -82,7 +81,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (!pv.IsMine) { return; }
         if (context.phase == InputActionPhase.Started)
         {
             isRunning = true;
