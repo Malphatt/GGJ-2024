@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if (!pv.IsMine)
         {
             Destroy(playerCam);
+            Destroy(rb);
         }
     }
 
