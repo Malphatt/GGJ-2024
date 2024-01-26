@@ -17,6 +17,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListPrefab;
     [SerializeField] Transform playerListContent;
     [SerializeField] GameObject playerListPrefab;
+    [SerializeField] GameObject startButton;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Bro is connected!");
         PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnJoinedLobby()
@@ -58,10 +60,21 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         Player[] players = PhotonNetwork.PlayerList;
 
+        foreach(Transform child in playerListContent)
+        {
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < players.Count(); i++)
         {
             Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(players[i]);
         }
+        startButton.SetActive(PhotonNetwork.IsMasterClient);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        startButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -69,7 +82,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         errorText.text = "Room Creation Failed: " + message;
         MenuManager.instance.OpenMenu("error");
     }
-
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel(1);
+    }
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
@@ -92,7 +108,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         for (int i = 0; i < roomList.Count; i++)
         {
             Debug.Log(roomList[i].Name);
+            if (roomList[i].RemovedFromList)
+            {
+                continue;
+            }
             Instantiate(roomListPrefab, roomListContent).GetComponent<RoomListItem>().Setup(roomList[i]);
+
         }
     }
     public void JoinRoom(RoomInfo info)

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject playerCam;
     private Rigidbody rb;
     Vector2 moveInput;
+    PhotonView pv;
 
     bool moving = false;
     bool isGrounded = false;
@@ -18,14 +21,25 @@ public class PlayerController : MonoBehaviour
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
+    private void Awake()
+    {
+        pv = GetComponent<PhotonView>();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         speed = walkSpeed;
+
+        if (!pv.IsMine)
+        {
+            Destroy(playerCam);
+        }
     }
 
     void FixedUpdate()
     {
+        if(!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -52,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!pv.IsMine) { return; }
         moveInput = context.ReadValue<Vector2>();
 
         if (context.phase == InputActionPhase.Started)
@@ -66,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
+        if (!pv.IsMine) { return; }
         if (context.phase == InputActionPhase.Started)
         {
             isRunning = true;
