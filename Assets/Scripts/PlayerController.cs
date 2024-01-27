@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
-    float baseTurnSpeed = 0.5f;
+    float baseTurnSpeed = 0.25f;
     float cooldownNum = 0.7f;
     float cooldown = 0.0f;
 
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
-        if(!pv.IsMine) { return; }
+        if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IDamagable
             isRunning = false;
         }
     }
-    
+
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
