@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     PhotonView pv;
 
     public GameObject Camera;
+    public GameObject freeLookCamera;
     public GameObject CameraFacing;
 
     bool moving = false;
@@ -39,12 +40,14 @@ public class PlayerController : MonoBehaviour
         if (!pv.IsMine)
         {
             Destroy(Camera);
+            Destroy(freeLookCamera);
             Destroy(rb);
         }
     }
 
     void Update()
     {
+        if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
     }
 

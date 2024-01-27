@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8568242835306008264}
   - component: {fileID: 7014411511399322390}
   - component: {fileID: 4548586113242173149}
+  - component: {fileID: 6290365945967127704}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -189,9 +190,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff534e01a0113d84e9efb08b407bd22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCam: {fileID: 0}
   Camera: {fileID: 5983357056605592646}
+  freeLookCamera: {fileID: 3737850406709960617}
   CameraFacing: {fileID: 6231612915720412564}
+--- !u!114 &6290365945967127704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407563721675621523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &617526934101105038
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +873,6 @@ GameObject:
   - component: {fileID: 7990984613726726048}
   - component: {fileID: 6095377027731936696}
   - component: {fileID: 7916944023418007192}
-  - component: {fileID: -9127752370389367925}
   - component: {fileID: -34066017972517770}
   m_Layer: 0
   m_Name: Player
@@ -933,22 +949,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-9127752370389367925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3903782913605499564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &-34066017972517770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,7 +968,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -9127752370389367925}
+  - {fileID: 6290365945967127704}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
