@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     float walkSpeed = 25.0f;
     float runSpeed = 35.0f;
-    float jumpForce = 25.0f;
+    float jumpForce = 15.0f;
 
     float speed = 0.0f;
     float maxWalkSpeed = 10.0f;
@@ -104,11 +104,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         // if the player is moving too fast, slow them down
         if (isRunning && rb.velocity.magnitude > maxRunSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxRunSpeed;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized * maxRunSpeed + new Vector3(0, rb.velocity.y, 0);
         }
         else if (!isRunning && rb.velocity.magnitude > maxWalkSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxWalkSpeed;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized * maxWalkSpeed + new Vector3(0, rb.velocity.y, 0);
         }
 
         // if the player isn't moving and is on the ground, slow them down
