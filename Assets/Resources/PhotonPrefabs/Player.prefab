@@ -401,7 +401,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 1
-  m_IgnoreTag: Camera Clip
+  m_IgnoreTag: Untagged
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
