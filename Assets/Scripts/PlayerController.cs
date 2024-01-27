@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     Vector2 moveInput;
     public PhotonView pv;
+    [SerializeField] Slider slider;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         rb = transform.GetComponent<Rigidbody>();
         speed = walkSpeed;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (!pv.IsMine)
         {
@@ -52,6 +56,8 @@ public class PlayerController : MonoBehaviour, IDamagable
             Destroy(freeLookCamera);
             Destroy(rb);
         }
+        slider.maxValue = maxHealth;
+        slider.value = maxHealth;
     }
 
     void Update()
@@ -156,7 +162,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
 
         curHealth -= damage;
-        Debug.Log(curHealth);
+        slider.value = curHealth;
     }
 
 }
