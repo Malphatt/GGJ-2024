@@ -5,12 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - Camera Clip
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PostProcessing
   - Water
   - UI
   - 
