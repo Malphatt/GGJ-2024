@@ -134,18 +134,10 @@ MonoBehaviour:
     m_ActionId: 6bd49278-ad30-4986-aa2c-6c2458dcd358
     m_ActionName: Player/Look[/Mouse/delta,/Touchscreen/delta,/Pen/delta]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ae16d642-9535-4a8a-8e18-bce23959ca71
-    m_ActionName: Player/Fire[/Mouse/leftButton,/Touchscreen/primaryTouch/tap]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 41ec41e4-16e9-4801-a05d-58d26fe64c41
-    m_ActionName: UI/Pause[/Keyboard/escape]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4548586113242173149}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnJump
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -155,6 +147,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_ActionId: ae16d642-9535-4a8a-8e18-bce23959ca71
+    m_ActionName: Player/Fire[/Mouse/leftButton,/Touchscreen/primaryTouch/tap]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41ec41e4-16e9-4801-a05d-58d26fe64c41
+    m_ActionName: UI/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
     m_ActionId: f590885e-da0e-4fbc-bdb3-d8a1d77da0ca
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -193,6 +193,7 @@ MonoBehaviour:
   Camera: {fileID: 5983357056605592646}
   freeLookCamera: {fileID: 3737850406709960617}
   CameraFacing: {fileID: 6231612915720412564}
+  weapon: {fileID: 8868485498290723142}
 --- !u!114 &6290365945967127704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1, z: -5}
+  m_FollowOffset: {x: 0, y: 5.000001, z: -1.0000103}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -429,7 +430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2969359108156792134}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09853762, y: -0, z: -0, w: 0.99513334}
+  m_LocalRotation: {x: 0.45630646, y: -0.5368886, z: 0.44014242, w: 0.5566055}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1, z: -5}
+  m_FollowOffset: {x: 0, y: 5.000001, z: -1.0000103}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -623,7 +624,7 @@ Transform:
   m_GameObject: {fileID: 3737850406709960617}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -5}
+  m_LocalPosition: {x: 0.99936026, y: 6.000001, z: -0.036050986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -672,7 +673,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_YAxis:
-    Value: 0
+    Value: 0.9999952
     m_SpeedMode: 0
     m_MaxSpeed: 2
     m_AccelTime: 0.2
@@ -808,7 +809,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3874280315441128135}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09853762, y: -0, z: -0, w: 0.99513334}
+  m_LocalRotation: {x: 0.45630646, y: -0.5368886, z: 0.44014242, w: 0.5566055}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -875,6 +876,8 @@ GameObject:
   - component: {fileID: 7916944023418007192}
   - component: {fileID: -34066017972517770}
   - component: {fileID: 5647902747649044712}
+  - component: {fileID: 7341120790585230596}
+  - component: {fileID: 8697266927644980023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -970,6 +973,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5647902747649044712}
+  - {fileID: 8697266927644980023}
   - {fileID: 6290365945967127704}
   sceneViewId: 0
   InstantiationId: 0
@@ -990,6 +994,45 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!95 &7341120790585230596
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903782913605499564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25499f792ba5bee41aae6d01e2b64cd2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8697266927644980023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903782913605499564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters: []
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &4249265631475879538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5503009133880227114}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09853762, y: -0, z: -0, w: 0.99513334}
+  m_LocalRotation: {x: 0.45630646, y: -0.5368886, z: 0.44014242, w: 0.5566055}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1160,8 +1203,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5983357056605592646}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09853762, y: -0, z: -0, w: 0.99513334}
-  m_LocalPosition: {x: 0, y: 2, z: -5}
+  m_LocalRotation: {x: 0.45630646, y: -0.5368886, z: 0.44014242, w: 0.5566055}
+  m_LocalPosition: {x: 0.99936026, y: 6.000001, z: -0.036050986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1300,7 +1343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5582220322574333478}
-  - component: {fileID: 2292558747385852744}
+  - component: {fileID: 8868485498290723142}
   m_Layer: 0
   m_Name: Fist
   m_TagString: Untagged
@@ -1324,7 +1367,7 @@ Transform:
   - {fileID: 2316646723107297758}
   m_Father: {fileID: 5066990542919509371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2292558747385852744
+--- !u!114 &8868485498290723142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1333,11 +1376,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7688606885252740142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e19cda16c97d9d44b6af9db6ec34933, type: 3}
+  m_Script: {fileID: 11500000, guid: 81560fc0aa3696a4fa8780c4c6293810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: ca588ba1b10e3214f91559129866426c, type: 2}
   itemGameObject: {fileID: 4249265631475879538}
+  animator: {fileID: 7341120790585230596}
 --- !u!1 &8227986019766114464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1, z: -5}
+  m_FollowOffset: {x: 0, y: 5.000001, z: -1.0000103}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1

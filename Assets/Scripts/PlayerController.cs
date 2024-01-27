@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Camera;
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
+    public Item weapon;
 
     bool moving = false;
     bool isGrounded = false;
@@ -114,23 +115,16 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
     }
-
-    public void OnLook(InputAction.CallbackContext context)
+    
+    public void OnFire(InputAction.CallbackContext context)
     {
-        // Vector2 lookInput = context.ReadValue<Vector2>();
-
-        // playerCameraRig.m_XAxis.Value += lookInput.x;
-        // playerCameraRig.m_YAxis.Value += lookInput.y;
-        // Check if the input is a mouse input and alter the cinemachine camera rig for the x-axis speed to input value gain instead of max speed
-        // if (context.control.device.name == "Mouse")
-        // {
-        //     playerCameraRig.m_XAxis.m_MaxSpeed = 300;
-        // }
-        // else
-        // {
-        //     playerCameraRig.m_XAxis.m_MaxSpeed = 0;
-        // }
+        if (context.phase == InputActionPhase.Started)
+        {
+            weapon.Use();
+        }
     }
+
+    
 
 
 }
