@@ -5,6 +5,7 @@ using UnityEngine;
 public class SingleHitMelee : Weapon
 {
     public Animator animator;
+
     public override void Use()
     {
         Debug.Log("Punch");
@@ -19,10 +20,11 @@ public class SingleHitMelee : Weapon
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Hit a player!" + other.gameObject.name);
-            other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage);
+            other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage,other.gameObject);
         }
     }
 }
