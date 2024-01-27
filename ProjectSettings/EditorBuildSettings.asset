@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Multiplayer.unity
     guid: 47847495b2932564cbbfe4e70cd9c1a1
   - enabled: 1
-    path: Assets/Scenes/ModelsDemo.unity
+    path: Assets/Scenes/mainStage.unity
     guid: 3be0502bc7daa3747b1143ceba8c850b
   m_configObjects: {}
