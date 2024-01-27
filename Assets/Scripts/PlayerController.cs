@@ -29,12 +29,15 @@ public class PlayerController : MonoBehaviour, IDamagable
     bool moving = false;
     bool isGrounded = false;
     bool isRunning = false;
+    bool isJumping = false;
 
-    float walkSpeed = 20.0f;
-    float runSpeed = 30.0f;
+    float walkSpeed = 25.0f;
+    float runSpeed = 35.0f;
+    float jumpForce = 25.0f;
 
     float speed = 0.0f;
-    float maxSpeed = 20.0f;
+    float maxWalkSpeed = 10.0f;
+    float maxRunSpeed = 15.0f;
 
     float baseTurnSpeed = 0.25f;
     float cooldownNum = 0.7f;
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         for (int i = 0; i < players.Length; i++)
         {
             Instantiate(scoreListPrefab, scoreListContent);
-            scoreListContent.GetChild(i+1).gameObject.GetComponent<TMP_Text>().text = players[i].NickName + " - 0";
+            scoreListContent.GetChild(i + 1).gameObject.GetComponent<TMP_Text>().text = players[i].NickName + " - 0";
         }
     }
     void Update()
@@ -96,9 +99,13 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
-        if (rb.velocity.magnitude > maxSpeed)
+        if (isRunning && rb.velocity.magnitude > maxRunSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = rb.velocity.normalized * maxRunSpeed;
+        }
+        else if (!isRunning && rb.velocity.magnitude > maxWalkSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxWalkSpeed;
         }
 
         // if the player isn't moving and is on the ground, slow them down
@@ -113,6 +120,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (!moving && isGrounded)
         {
             rb.velocity = rb.velocity * 0.9f;
+        }
+
+        if (isGrounded && isJumping)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
         Vector3 forward = new Vector3(CameraFacing.transform.forward.x, 0, CameraFacing.transform.forward.z);
@@ -156,12 +168,24 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            isJumping = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isJumping = false;
+        }
+    }
+
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
             if (cooldown > cooldownNum)
-            { 
+            {
                 weapon.Use();
                 cooldown = 0f;
             }
