@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     Vector2 moveInput;
-    PhotonView pv;
+    public PhotonView pv;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
