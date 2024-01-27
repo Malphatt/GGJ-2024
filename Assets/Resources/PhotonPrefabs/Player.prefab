@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff534e01a0113d84e9efb08b407bd22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pv: {fileID: 0}
   Camera: {fileID: 1227934463699759492}
   freeLookCamera: {fileID: 2427354005132731457}
   CameraFacing: {fileID: 6231612915720412564}
