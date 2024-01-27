@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     Vector2 moveInput;
     public PhotonView pv;
     [SerializeField] Slider slider;
+    [SerializeField] Renderer glovesRenderer;
 
     [SerializeField] Transform scoreListContent;
     [SerializeField] GameObject scoreListPrefab;
@@ -57,6 +58,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         speed = walkSpeed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        glovesRenderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
         if (!pv.IsMine)
         {
