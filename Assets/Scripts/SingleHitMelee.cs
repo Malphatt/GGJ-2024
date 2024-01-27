@@ -21,6 +21,7 @@ public class SingleHitMelee : Weapon
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Hit a player!" + other.gameObject.name);
             other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage);
         }
     }
