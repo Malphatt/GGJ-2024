@@ -5,16 +5,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     Vector2 moveInput;
-    PhotonView pv;
+    public PhotonView pv;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
     public Item weapon;
+    public GameObject playerObject;
+
+    bool unhit;
 
     bool moving = false;
     bool isGrounded = false;
@@ -27,15 +30,20 @@ public class PlayerController : MonoBehaviour
     float maxSpeed = 20.0f;
 
     float baseTurnSpeed = 0.25f;
+    float cooldownNum = 0.7f;
+    float cooldown = 0.0f;
+
+    const float maxHealth = 200f;
+    float curHealth = maxHealth;
 
     private void Awake()
     {
-        pv = transform.parent.GetComponent<PhotonView>();
+        pv = transform.GetComponent<PhotonView>();
     }
 
     void Start()
     {
-        rb = transform.parent.GetComponent<Rigidbody>();
+        rb = transform.GetComponent<Rigidbody>();
         speed = walkSpeed;
 
         if (!pv.IsMine)
@@ -50,6 +58,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
+        cooldown += Time.deltaTime;
+        if (((SingleHitMelee)weapon).animator.GetFloat("Punch") < 0)
+        {
+            unhit = true;
+        }
     }
 
     void FixedUpdate()
@@ -62,7 +75,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // if the player isn't moving and is on the ground, slow them down
-        Ray groundedRay = new Ray(transform.position, Vector3.down);
+        Ray groundedRay = new Ray(playerObject.transform.position, Vector3.down);
         isGrounded = Physics.Raycast(groundedRay, 1.2f);
 
         if (isRunning)
@@ -86,7 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 targetDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, baseTurnSpeed * speed * Time.deltaTime);
+            playerObject.transform.rotation = Quaternion.Lerp(playerObject.transform.rotation, targetRotation, baseTurnSpeed * speed * Time.deltaTime);
         }
     }
 
@@ -120,7 +133,30 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            // weapon.Use();
+            if (cooldown > cooldownNum)
+            { 
+                weapon.Use();
+                cooldown = 0f;
+            }
+
         }
     }
+
+    public void TakeDamage(float damage, GameObject other)
+    {
+        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+
+        curHealth -= damage;
+        Debug.Log(curHealth);
+    }
+
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Fists
   m_EditorClassIdentifier: 
   itemName: fists
+  weaponDamage: 10
