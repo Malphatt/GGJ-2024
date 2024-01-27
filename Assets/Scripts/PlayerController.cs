@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        pv = GetComponent<PhotonView>();
+        pv = transform.parent.GetComponent<PhotonView>();
     }
 
     void Start()
