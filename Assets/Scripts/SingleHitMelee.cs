@@ -16,4 +16,12 @@ public class SingleHitMelee : Weapon
     {
         animator.SetFloat("Punch", -1);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage);
+        }
+    }
 }

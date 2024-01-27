@@ -1347,6 +1347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5582220322574333478}
   - component: {fileID: 8868485498290723142}
+  - component: {fileID: 7413450771153391313}
   m_Layer: 0
   m_Name: Fist
   m_TagString: Untagged
@@ -1385,6 +1386,27 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: ca588ba1b10e3214f91559129866426c, type: 2}
   itemGameObject: {fileID: 4249265631475879538}
   animator: {fileID: 7341120790585230596}
+--- !u!65 &7413450771153391313
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688606885252740142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44809866, y: 0.36261553, z: 1.7843151}
+  m_Center: {x: 0.015088737, y: -0.00076028705, z: 0.39215767}
 --- !u!1 &8227986019766114464
 GameObject:
   m_ObjectHideFlags: 0

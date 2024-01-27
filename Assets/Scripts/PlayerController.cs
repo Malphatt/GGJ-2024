@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     Vector2 moveInput;
@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     float maxSpeed = 20.0f;
 
     float baseTurnSpeed = 0.5f;
+    float cooldownNum = 0.7f;
+    float cooldown = 0.0f;
 
     private void Awake()
     {
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
+        cooldown += Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -120,8 +123,18 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            weapon.Use();
+            if (cooldown > cooldownNum)
+            {
+                weapon.Use();
+                cooldown = 0f;
+            }
+
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log("took damage: " + damage);
     }
 
     
