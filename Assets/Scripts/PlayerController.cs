@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     Vector2 moveInput;
+
+    public GameObject Camera;
+    public GameObject CameraFacing;
 
     bool moving = false;
     bool isGrounded = false;
@@ -18,10 +22,17 @@ public class PlayerController : MonoBehaviour
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
+    float baseTurnSpeed = 0.5f;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = transform.parent.GetComponent<Rigidbody>();
         speed = walkSpeed;
+    }
+
+    void Update()
+    {
+        CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
     }
 
     void FixedUpdate()
@@ -46,8 +57,19 @@ public class PlayerController : MonoBehaviour
             rb.velocity = rb.velocity * 0.9f;
         }
 
-        Vector3 moveDir = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        Vector3 forward = new Vector3(CameraFacing.transform.forward.x, 0, CameraFacing.transform.forward.z);
+        Vector3 right = new Vector3(CameraFacing.transform.right.x, 0, CameraFacing.transform.right.z);
+        Vector3 moveDir = forward * moveInput.y + right * moveInput.x;
+
         rb.velocity = rb.velocity + moveDir * speed * Time.deltaTime;
+
+        // if the player is moving, start rotating them in the direction they're moving
+        if (moving)
+        {
+            Vector3 targetDir = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, baseTurnSpeed * speed * Time.deltaTime);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -74,6 +96,23 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = false;
         }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        // Vector2 lookInput = context.ReadValue<Vector2>();
+
+        // playerCameraRig.m_XAxis.Value += lookInput.x;
+        // playerCameraRig.m_YAxis.Value += lookInput.y;
+        // Check if the input is a mouse input and alter the cinemachine camera rig for the x-axis speed to input value gain instead of max speed
+        // if (context.control.device.name == "Mouse")
+        // {
+        //     playerCameraRig.m_XAxis.m_MaxSpeed = 300;
+        // }
+        // else
+        // {
+        //     playerCameraRig.m_XAxis.m_MaxSpeed = 0;
+        // }
     }
 
 
