@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.UI;
+using Photon.Realtime;
+using TMPro;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
@@ -12,6 +14,9 @@ public class PlayerController : MonoBehaviour, IDamagable
     Vector2 moveInput;
     public PhotonView pv;
     [SerializeField] Slider slider;
+
+    [SerializeField] Transform scoreListContent;
+    [SerializeField] GameObject scoreListPrefab;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
@@ -58,8 +63,24 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
-    }
 
+        UpdatePlayerList();
+    }
+    public void UpdatePlayerList()
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 1; i < scoreListContent.childCount; i++)
+        {
+            Destroy(scoreListContent.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Instantiate(scoreListPrefab, scoreListContent);
+            scoreListContent.GetChild(i+1).gameObject.GetComponent<TMP_Text>().text = players[i].NickName + " - 0";
+        }
+    }
     void Update()
     {
         if (!pv.IsMine) { return; }
