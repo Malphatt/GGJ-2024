@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6156,6 +6156,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1643276284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5983357056605592646, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
+  m_PrefabInstance: {fileID: 3091216625462806169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867873782
 GameObject:
   m_ObjectHideFlags: 3
@@ -6583,33 +6588,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
-      propertyPath: m_LocalPosition.x
+    - target: {fileID: -34066017972517770, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -34066017972517770, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
+      propertyPath: ObservedComponents.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2607916
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.3362223
       objectReference: {fileID: 0}
     - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.043020908
       objectReference: {fileID: 0}
     - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99513334
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3143164036845434700, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09853762
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3903782913605499564, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4548586113242173149, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 1643276284}
     - target: {fileID: 6114529774534341918, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: field of view
-      value: 90
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7990984613726726048, guid: 78f565d0ee51ecd48ac87ef30983ffa7, type: 3}
       propertyPath: m_LocalPosition.x

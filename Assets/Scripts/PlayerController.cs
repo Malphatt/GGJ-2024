@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,10 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject playerCam;
     private Rigidbody rb;
     Vector2 moveInput;
+    PhotonView pv;
 
     public GameObject Camera;
     public GameObject CameraFacing;
@@ -16,18 +19,29 @@ public class PlayerController : MonoBehaviour
     bool isGrounded = false;
     bool isRunning = false;
 
-    float walkSpeed = 25.0f;
-    float runSpeed = 50.0f;
+    float walkSpeed = 20.0f;
+    float runSpeed = 30.0f;
 
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
     float baseTurnSpeed = 0.5f;
 
+    private void Awake()
+    {
+        pv = transform.parent.GetComponent<PhotonView>();
+    }
+
     void Start()
     {
         rb = transform.parent.GetComponent<Rigidbody>();
         speed = walkSpeed;
+
+        if (!pv.IsMine)
+        {
+            Destroy(playerCam);
+            Destroy(rb);
+        }
     }
 
     void Update()
@@ -37,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (rb.velocity.magnitude > maxSpeed)
         {
