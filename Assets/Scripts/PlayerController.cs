@@ -144,10 +144,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     public void TakeDamage(float damage, GameObject other)
     {
-        if (((SingleHitMelee)weapon).animator.GetFloat("Punch") > 0 && other != gameObject)
-        {
-            pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
-        }
+        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
 
     [PunRPC]
