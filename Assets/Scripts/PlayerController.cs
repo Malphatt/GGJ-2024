@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
+    float baseTurnSpeed = 0.5f;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
