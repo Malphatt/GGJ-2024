@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     float speed = 0.0f;
     float maxSpeed = 20.0f;
 
-    float baseTurnSpeed = 0.5f;
+    float baseTurnSpeed = 0.25f;
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!pv.IsMine) { return; }
+        if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -115,16 +115,12 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
         }
     }
-    
+
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
-            weapon.Use();
+            // weapon.Use();
         }
     }
-
-    
-
-
 }
