@@ -5456,6 +5456,8 @@ GameObject:
   - component: {fileID: 1787050066}
   - component: {fileID: 1787050065}
   - component: {fileID: 1787050069}
+  - component: {fileID: 1787050071}
+  - component: {fileID: 1787050070}
   m_Layer: 0
   m_Name: butter
   m_TagString: Untagged
@@ -5543,7 +5545,7 @@ Transform:
   m_GameObject: {fileID: 1787050064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -189.09, y: 35.33, z: 86.68}
+  m_LocalPosition: {x: -189.09, y: 35.33, z: 76.08}
   m_LocalScale: {x: 2.0186605, y: 2.0186605, z: 5.163128}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5576,6 +5578,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1787050070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787050064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &1787050071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787050064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 2
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1787050070}
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1855194192 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be421a809ac752b40a150dbeedf49f24, type: 3}
