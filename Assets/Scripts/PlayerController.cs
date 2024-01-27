@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         rb = transform.GetComponent<Rigidbody>();
         speed = walkSpeed;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (!pv.IsMine)
         {
