@@ -9,7 +9,7 @@ public class SingleHitMelee : Weapon
     {
         Debug.Log("Punch");
         animator.SetFloat("Punch", 1);
-        Invoke("UnPunch", 0.3f);
+        Invoke("UnPunch", 0.5f);
     }
 
     void UnPunch()
