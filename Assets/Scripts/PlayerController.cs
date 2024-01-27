@@ -7,7 +7,6 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameObject playerCam;
     private Rigidbody rb;
     Vector2 moveInput;
     PhotonView pv;
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         if (!pv.IsMine)
         {
-            Destroy(playerCam);
+            Destroy(Camera);
             Destroy(rb);
         }
     }
