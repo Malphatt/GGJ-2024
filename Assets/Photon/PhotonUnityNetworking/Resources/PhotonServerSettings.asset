@@ -44,6 +44,7 @@ MonoBehaviour:
   - NewRound
   - RPC_EndGame
   - RPC_GetKill
+  - RPC_KnifeOn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

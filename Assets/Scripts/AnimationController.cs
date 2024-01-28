@@ -11,7 +11,7 @@ public class AnimationController : MonoBehaviour
     }
     public void PunchControl()
     {
-        animator.SetBool("Punch", false);
+        animator.SetBool("fists", false);
     }
 
     public void DamageControl()
@@ -30,5 +30,9 @@ public class AnimationController : MonoBehaviour
     public void EmoteControl()
     {
         animator.SetBool("Emote", false);
+    }
+    public void KnifeControl()
+    {
+        animator.SetBool("knife", false);
     }
 }
