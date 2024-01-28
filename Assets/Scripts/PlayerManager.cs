@@ -62,4 +62,14 @@ public class PlayerManager : MonoBehaviour
         hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
+
+    public void EndGame()
+    {
+
+    }
+    [PunRPC]
+    void RPC_EndGame(PhotonMessageInfo info)
+    {
+        string winner = info.Sender.NickName;
+    }
 }
