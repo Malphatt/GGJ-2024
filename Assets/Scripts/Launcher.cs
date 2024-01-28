@@ -6,6 +6,7 @@ using TMPro;
 using Photon.Realtime;
 using System.Linq;
 using JetBrains.Annotations;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -101,7 +102,15 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(players[i]);
         }
-        startButton.SetActive(PhotonNetwork.IsMasterClient);
+
+        if (players.Length >= 2)
+        {
+            startButton.SetActive(PhotonNetwork.IsMasterClient);
+        }
+        else
+        {
+            startButton.SetActive(false);
+        }
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -156,5 +165,27 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(newPlayer);
+
+        Player[] players = PhotonNetwork.PlayerList;
+        if (players.Length >= 2)
+        {
+            startButton.SetActive(PhotonNetwork.IsMasterClient);
+        }
+        else
+        {
+            startButton.SetActive(false);
+        }
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+        if (players.Length >= 2)
+        {
+            startButton.SetActive(PhotonNetwork.IsMasterClient);
+        }
+        else
+        {
+            startButton.SetActive(false);
+        }
     }
 }
