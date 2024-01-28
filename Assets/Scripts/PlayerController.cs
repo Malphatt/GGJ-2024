@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     Vector2 moveInput;
     public PhotonView pv;
     [SerializeField] Slider slider;
+    [SerializeField] Renderer glovesRenderer;
 
     [SerializeField] Transform scoreListContent;
     [SerializeField] GameObject scoreListPrefab;
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         pv = transform.GetComponent<PhotonView>();
-        SetSensitivity(1f);
     }
 
     void Start()
@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         speed = walkSpeed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        glovesRenderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
         if (!pv.IsMine)
         {
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
+        pv.RPC("RPC_PlayerAccessories",RpcTarget.OthersBuffered,Launcher.instance.accessories);
         PlayerAccessories(Launcher.instance.accessories);
         UpdatePlayerList();
     }
@@ -196,11 +199,6 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
-    public void SetSensitivity(float sensitivity)
-    {
-        
-    }
-
     public void TakeDamage(float damage, GameObject other)
     {
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
@@ -208,6 +206,11 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void PlayerAccessories(bool[] enabledList)
     {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+
         for (int i = 0; i < accessories.Length; i++)
         {
             accessories[i].SetActive(enabledList[i]);
@@ -219,13 +222,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (!pv.IsMine)
         {
-            return;
+            for (int i = 0; i < accessories.Length; i++)
+            {
+                accessories[i].SetActive(enabledList[i]);
+            }
         }
 
-        for (int i = 0; i < accessories.Length; i++)
-        {
-            accessories[i].SetActive(enabledList[i]);
-        }
     }
 
     [PunRPC]
