@@ -207,7 +207,6 @@ public class PlayerController : MonoBehaviour, IDamagable
             weapon = knife;
             fist.gameObject.SetActive(false);
             knife.gameObject.SetActive(true);
-            // weapon
         }
         else
         {

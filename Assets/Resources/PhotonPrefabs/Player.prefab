@@ -348,8 +348,11 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Damaged
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Emote
+  - Type: 4
+    SynchronizeType: 2
+    Name: Knife
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -2866,7 +2869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: ca588ba1b10e3214f91559129866426c, type: 2}
   itemGameObject: {fileID: 4249265631475879538}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
 --- !u!65 &7413450771153391313
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3699,7 +3702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: e3560f5cfe775c445b30e12ea0906c07, type: 2}
   itemGameObject: {fileID: 1993404425410003764}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
 --- !u!65 &2473907658251584870
 BoxCollider:
   m_ObjectHideFlags: 0
