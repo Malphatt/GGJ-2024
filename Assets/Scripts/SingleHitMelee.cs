@@ -9,13 +9,7 @@ public class SingleHitMelee : Weapon
     public override void Use()
     {
         Debug.Log("Punch");
-        animator.SetFloat("Punch", 1);
-        Invoke("UnPunch", 0.5f);
-    }
-
-    void UnPunch()
-    {
-        animator.SetFloat("Punch", -1);
+        animator.SetBool("Punch", true);
     }
 
     private void OnTriggerEnter(Collider other)

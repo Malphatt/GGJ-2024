@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     public Item weapon;
     public GameObject playerObject;
 
+    public Animator animator;
+
     bool unhit;
 
     bool moving = false;
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
         cooldown += Time.deltaTime;
-        if (((SingleHitMelee)weapon).animator.GetFloat("Punch") < 0)
+        if (((SingleHitMelee)weapon).animator.GetBool("Punch") == false)
         {
             unhit = true;
         }
@@ -201,6 +203,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     public void TakeDamage(float damage, GameObject other)
     {
+        animator.SetBool("Damaged", true);
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
 
