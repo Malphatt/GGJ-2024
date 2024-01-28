@@ -1472,6 +1472,8 @@ MonoBehaviour:
   freeLookCamera: {fileID: 2427354005132731457}
   CameraFacing: {fileID: 6231612915720412564}
   weapon: {fileID: 8868485498290723142}
+  fist: {fileID: 8868485498290723142}
+  knife: {fileID: 2585843924493199890}
   playerObject: {fileID: 407563721675621523}
   animator: {fileID: 5364170827801074865}
   curHealth: 10
@@ -3660,7 +3662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ffc4ba4d11fcfac4c8d6a308d7e39161, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
     public Item weapon;
+    public Item fist;
+    public Item knife;
     public GameObject playerObject;
 
     public Animator animator;
@@ -202,7 +204,16 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (pickupName == "knife")
         {
-            
+            weapon = knife;
+            fist.gameObject.SetActive(false);
+            knife.gameObject.SetActive(true);
+            // weapon
+        }
+        else
+        {
+            weapon = fist;
+            fist.gameObject.SetActive(true);
+            knife.gameObject.SetActive(false);
         }
     }
 
@@ -252,10 +263,10 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         if (curHealth <= 0)
         {
-            
+
             PlayerManager.Find(info.Sender).GetKill();
             Die();
-            
+
         }
     }
 
