@@ -107,7 +107,7 @@ Transform:
   - {fileID: 2269389634403817010}
   - {fileID: 6821950915590349007}
   m_Father: {fileID: 815189239826405110}
-  m_LocalEulerAnglesHint: {x: -89.83807, y: -179.99037, z: 179.99037}
+  m_LocalEulerAnglesHint: {x: 44.441196, y: 0.000044437085, z: 0.000058369766}
 --- !u!1 &407563721675621523
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +153,7 @@ Transform:
   - {fileID: 957517184390735386}
   - {fileID: 733709213547929219}
   - {fileID: 1809574753706287578}
+  - {fileID: 8311048404493746316}
   m_Father: {fileID: 7990984613726726048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6290365945967127704
@@ -437,7 +438,7 @@ Transform:
   - {fileID: 9200320841782048876}
   - {fileID: 6047190316187862086}
   m_Father: {fileID: 3113201792129168794}
-  m_LocalEulerAnglesHint: {x: 89.81761, y: 134.71948, z: 134.20006}
+  m_LocalEulerAnglesHint: {x: 89.55193, y: 163.32051, z: 162.9501}
 --- !u!1 &1227934463699759492
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +451,7 @@ GameObject:
   - component: {fileID: 5864671196912427096}
   - component: {fileID: 2510420447310017994}
   - component: {fileID: 6636203606886129470}
+  - component: {fileID: 713508385202814397}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -566,6 +568,102 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!82 &713508385202814397
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227934463699759492}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f0820c2f00aacc446a773eb9c7380e93, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2261680029147389758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,12 +1336,13 @@ MonoBehaviour:
   - {fileID: 2888412021303844485}
   - {fileID: 1602350321553387048}
   - {fileID: 1795227398178338376}
+  beanMaker: {fileID: 9216051494863135629}
   Camera: {fileID: 1227934463699759492}
   freeLookCamera: {fileID: 2427354005132731457}
   CameraFacing: {fileID: 6231612915720412564}
   weapon: {fileID: 8868485498290723142}
   playerObject: {fileID: 407563721675621523}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
   curHealth: 200
 --- !u!114 &1874578346977804346
 MonoBehaviour:
@@ -1736,7 +1835,7 @@ Transform:
   m_Children:
   - {fileID: 1059340431292544995}
   m_Father: {fileID: 815189239826405110}
-  m_LocalEulerAnglesHint: {x: 88.381775, y: 165.56226, z: -13.645972}
+  m_LocalEulerAnglesHint: {x: 88.381775, y: 165.56227, z: -13.645968}
 --- !u!1 &4662005766204693174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2418,7 +2517,7 @@ Transform:
   m_Children:
   - {fileID: 8550244526454760637}
   m_Father: {fileID: 815189239826405110}
-  m_LocalEulerAnglesHint: {x: 0.0000075952958, y: 0.00002170387, z: 160.70099}
+  m_LocalEulerAnglesHint: {x: 0.0000075784033, y: 0.000021701859, z: 160.70099}
 --- !u!1 &7688606885252740142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,6 +2856,52 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &9216051494863135629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8311048404493746316}
+  - component: {fileID: 2641552386568403189}
+  m_Layer: 0
+  m_Name: beanMaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8311048404493746316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216051494863135629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2460753116670483790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2641552386568403189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216051494863135629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c811de90f7d75f24480c335c71021a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beanPrefab: {fileID: 7883988165230384344, guid: 74c5847a296090e4496a8d9412d49320, type: 3}
+  numBeans: 100
 --- !u!1001 &775588575110250993
 PrefabInstance:
   m_ObjectHideFlags: 0
