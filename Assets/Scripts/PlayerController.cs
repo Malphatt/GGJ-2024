@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (context.phase == InputActionPhase.Started)
         {
             //Play sfx
-            AudioSource.PlayClipAtPoint(jump, transform.position);
+            GetComponent<AudioSource>().PlayOneShot(jump);
             isJumping = true;
         }
         else if (context.phase == InputActionPhase.Canceled)
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour, IDamagable
                 cooldown = 0f;
 
                 //Play sfx
-                AudioSource.PlayClipAtPoint(punch, transform.position);
+                GetComponent<AudioSource>().PlayOneShot(punch);
             }
         }
     }
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         pv.RPC("RPC_TakeDamage", pv.Owner, damage, velocity);
 
         //Play sfx
-        AudioSource.PlayClipAtPoint(hit, transform.position);
+        GetComponent<AudioSource>().PlayOneShot(hit);
     }
 
     void PlayerAccessories(bool[] enabledList)
