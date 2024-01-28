@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     bool isRunning = false;
     bool isJumping = false;
 
-    float walkSpeed = 20.0f;
-    float runSpeed = 30.0f;
+    float walkSpeed = 25.0f;
+    float runSpeed = 35.0f;
     float jumpForce = 15.0f;
 
     float speed = 0.0f;
