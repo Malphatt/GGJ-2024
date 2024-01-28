@@ -199,9 +199,10 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
-    public void TakeDamage(float damage, GameObject other)
+    public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
-        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+        Vector3 velocity = (gameObject.transform.position - position) * 2;
+        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage,velocity);
     }
 
     void PlayerAccessories(bool[] enabledList)
@@ -231,7 +232,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage)
+    void RPC_TakeDamage(float damage, Vector3 velocity)
     {
         if (!pv.IsMine)
         {
@@ -240,6 +241,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         curHealth -= damage;
         slider.value = curHealth;
+        rb.velocity += velocity;
     }
 
 }

@@ -20,13 +20,12 @@ public class SingleHitMelee : Weapon
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.CompareTag("Player"))
         {
             if (!other.gameObject.GetComponent<PlayerController>().pv.IsMine)
             {
                 Debug.Log("Hit a player!" + other.gameObject.name);
-                other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage, other.gameObject);
+                other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage, other.gameObject,gameObject.transform.position);
             }
         }
     }
