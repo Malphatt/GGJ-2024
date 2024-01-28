@@ -19,12 +19,15 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] Transform scoreListContent;
     [SerializeField] GameObject scoreListPrefab;
     [SerializeField] GameObject[] accessories;
+    [SerializeField] GameObject beanMaker;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
     public Item weapon;
     public GameObject playerObject;
+
+    public Animator animator;
 
     bool unhit;
 
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
         cooldown += Time.deltaTime;
-        if (((SingleHitMelee)weapon).animator.GetFloat("Punch") < 0)
+        if (((SingleHitMelee)weapon).animator.GetBool("Punch") == false)
         {
             unhit = true;
         }
@@ -103,6 +106,11 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
+        slider.value = curHealth;
+        if (curHealth <= 0)
+        {
+            beanMaker.SetActive(true);
+        }
         if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (isRunning && rb.velocity.magnitude > maxRunSpeed)
@@ -116,6 +124,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         // if the player isn't moving and is on the ground, slow them down
         Ray groundedRay = new Ray(playerObject.transform.position, Vector3.down);
+
         isGrounded = Physics.Raycast(groundedRay, 1.2f);
 
         if (isRunning)
@@ -199,11 +208,10 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
-    public void TakeDamage(float damage, GameObject other, Vector3 position)
+    public void TakeDamage(float damage, GameObject other)
     {
-        Vector3 velocity = (gameObject.transform.position - position) * 36f;
-        velocity = new Vector3(velocity.x, Mathf.Max(15f,velocity.y), velocity.z);
-        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage,velocity);
+        animator.SetBool("Damaged", true);
+        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
 
     void PlayerAccessories(bool[] enabledList)
@@ -233,7 +241,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage, Vector3 velocity)
+    void RPC_TakeDamage(float damage)
     {
         if (!pv.IsMine)
         {
@@ -242,7 +250,6 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         curHealth -= damage;
         slider.value = curHealth;
-        rb.velocity += velocity;
     }
 
 }
