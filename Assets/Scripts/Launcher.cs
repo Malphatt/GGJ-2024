@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Linq;
+using JetBrains.Annotations;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -18,12 +19,42 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Transform playerListContent;
     [SerializeField] GameObject playerListPrefab;
     [SerializeField] GameObject startButton;
+    [SerializeField] TMP_Text beanName;
+
+    private string beanNickname;
+
+    string[] names = {
+        "TinyTin",
+        "Beano",
+        "Beanard",
+        "Candice",
+        "Toasty",
+        "MrBean",
+        "Heinz Doof",
+        "Tinnothy",
+        "BeanMachine",
+        "Beandy",
+        "UncleBean",
+        "CanDoattitude",
+        "CanJammer",
+        "TinTin",
+        "Tinsley",
+        "Bean"
+    };
+
     // Start is called before the first frame update
     private void Awake()
     {
         instance = this;
+        beanNickname = names[Random.Range(0, names.Length)] + Random.Range(0, 10000).ToString("0000");
+        beanName.text = "Name: " + beanNickname;
     }
 
+    public void newName()
+    {
+        beanNickname = names[Random.Range(0, names.Length)] + Random.Range(0, 10000).ToString("0000");
+        beanName.text = "Name: " + beanNickname;
+    }
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -40,7 +71,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Bro is in the lobby!");
         MenuManager.instance.OpenMenu("title");
-        PhotonNetwork.NickName = "Bean " + Random.Range(0, 10000).ToString("0000");
+        PhotonNetwork.NickName = beanNickname;
     }
 
     public void CreatRoom()
