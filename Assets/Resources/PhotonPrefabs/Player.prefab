@@ -342,14 +342,17 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 2
-    Name: Punch
-  - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Damaged
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Emote
+  - Type: 4
+    SynchronizeType: 1
+    Name: fists
+  - Type: 4
+    SynchronizeType: 1
+    Name: knife
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1440,6 +1443,7 @@ MonoBehaviour:
   - {fileID: 5647902747649044712}
   - {fileID: 6290365945967127704}
   - {fileID: 2216164364142466507}
+  - {fileID: 12535331171092678}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2866,7 +2870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: ca588ba1b10e3214f91559129866426c, type: 2}
   itemGameObject: {fileID: 4249265631475879538}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
 --- !u!65 &7413450771153391313
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3674,6 +3678,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffc4ba4d11fcfac4c8d6a308d7e39161, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2473907658251584870}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffc4ba4d11fcfac4c8d6a308d7e39161, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 12535331171092678}
   m_SourcePrefab: {fileID: 100100000, guid: ffc4ba4d11fcfac4c8d6a308d7e39161, type: 3}
 --- !u!4 &1216585907729144206 stripped
 Transform:
@@ -3699,7 +3706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: e3560f5cfe775c445b30e12ea0906c07, type: 2}
   itemGameObject: {fileID: 1993404425410003764}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
 --- !u!65 &2473907658251584870
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3721,6 +3728,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.04369623, z: 0.0018122174}
   m_Center: {x: 0.01, y: 0.019846464, z: 0}
+--- !u!114 &12535331171092678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993404425410003764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1944949145267671929
 PrefabInstance:
   m_ObjectHideFlags: 0
