@@ -112,10 +112,9 @@ public class PlayerController : MonoBehaviour, IDamagable
     void FixedUpdate()
     {
         slider.value = curHealth;
-        if (curHealth <= 0)
+        if (curHealth <= 0 || transform.position.y < 15)
         {
-            rb.constraints = RigidbodyConstraints.None;
-            beanMaker.SetActive(true);
+            Die();
         }
         if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
@@ -266,6 +265,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void Die()
     {
         playerManager.Die();
+        beanMaker.SetActive(true);
+        rb.constraints = RigidbodyConstraints.None;
     }
 
 }
