@@ -11,7 +11,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] int maxRounds = 3;
     [SerializeField] float maxTime = 60f;
 
-    [SerializeField] List<GameObject> players = new List<GameObject>();;
+    [SerializeField] List<GameObject> players = new List<GameObject>();
     
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
