@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour, IDamagable
     public Item knife;
     public GameObject playerObject;
 
+    public AudioClip hit;
+    public AudioClip punch;
+    public AudioClip jump;
+
     public Animator animator;
 
     bool unhit;
@@ -179,6 +183,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (context.phase == InputActionPhase.Started)
         {
+            //Play sfx
+            AudioSource.PlayClipAtPoint(jump, transform.position);
             isJumping = true;
         }
         else if (context.phase == InputActionPhase.Canceled)
@@ -195,8 +201,10 @@ public class PlayerController : MonoBehaviour, IDamagable
             {
                 weapon.Use();
                 cooldown = 0f;
-            }
 
+                //Play sfx
+                AudioSource.PlayClipAtPoint(punch, transform.position);
+            }
         }
     }
 
@@ -221,6 +229,9 @@ public class PlayerController : MonoBehaviour, IDamagable
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
         velocity = new Vector3(velocity.x, Mathf.Max(15f, velocity.y), velocity.z);
         pv.RPC("RPC_TakeDamage", pv.Owner, damage, velocity);
+
+        //Play sfx
+        AudioSource.PlayClipAtPoint(hit, transform.position);
     }
 
     void PlayerAccessories(bool[] enabledList)
