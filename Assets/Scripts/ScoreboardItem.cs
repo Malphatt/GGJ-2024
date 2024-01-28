@@ -26,6 +26,7 @@ public class ScoreboardItem : MonoBehaviourPunCallbacks
         {
             if ((int)kills > 0)
             {
+                PlayerManager.winner = player.NickName;
                 PlayerManager.Find(player).EndGame();
             }
             scoreText.text = kills.ToString();

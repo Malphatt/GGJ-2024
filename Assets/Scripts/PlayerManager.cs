@@ -71,8 +71,6 @@ public class PlayerManager : MonoBehaviour
     [PunRPC]
     void RPC_EndGame(PhotonMessageInfo info)
     {
-        winner = info.Sender.NickName;
-        Debug.Log(winner);
         PhotonNetwork.LoadLevel(2);
     }
 }
