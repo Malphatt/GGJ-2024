@@ -199,11 +199,6 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
-    public void SetSensitivity(float sensitivity)
-    {
-        
-    }
-
     public void TakeDamage(float damage, GameObject other)
     {
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
