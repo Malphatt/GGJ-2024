@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     [SerializeField] Transform scoreListContent;
     [SerializeField] GameObject scoreListPrefab;
+    [SerializeField] GameObject[] accessories;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
@@ -196,6 +197,20 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void TakeDamage(float damage, GameObject other)
     {
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    void RPC_PlayerAccessories(bool[] enabledList)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+
+        for (int i = 0; i < accessories.Length; i++)
+        {
+            accessories[i].SetActive(enabledList[i]);
+        }
     }
 
     [PunRPC]
