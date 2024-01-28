@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,7 @@ public class gameManager : MonoBehaviour
 {
     [SerializeField] int roundNumber;
     [SerializeField] float roundTimer;
+    PhotonView pv;
     
     [SerializeField] int maxRounds = 3;
     [SerializeField] float maxTime = 180f;
@@ -16,7 +18,13 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
-    
+
+
+    private void Awake()
+    {
+        pv = transform.GetComponent<PhotonView>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,8 +68,6 @@ public class gameManager : MonoBehaviour
                 //End Round
                 Debug.Log("Round Over");
                 roundNumber++;
-                roundTimer = maxTime;
-                roundNumberText.text = "Round: " + roundNumber;
             }
         }
 
@@ -72,4 +78,15 @@ public class gameManager : MonoBehaviour
         }
 
     }
+
+    [PunRPC]
+    public void NewRound(int roundNum)
+    {
+        if (pv.IsMine)
+        {
+            roundTimer = maxTime;
+            roundNumberText.text = "Round: " + roundNumber;
+        }
+    }
+
 }
