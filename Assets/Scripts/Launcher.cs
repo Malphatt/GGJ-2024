@@ -24,20 +24,20 @@ public class Launcher : MonoBehaviourPunCallbacks
     private string beanNickname;
 
     string[] names = {
-        "Tiny Tin",
+        "TinyTin",
         "Beano",
         "Beanard",
         "Candice",
         "Toasty",
-        "Mr Bean",
+        "MrBean",
         "Heinz Doof",
         "Tinnothy",
-        "Bean Machine",
+        "BeanMachine",
         "Beandy",
-        "Uncle Bean",
-        "Can do attitude",
-        "Can Jammer",
-        "Tin Tin",
+        "UncleBean",
+        "CanDoattitude",
+        "CanJammer",
+        "TinTin",
         "Tinsley",
         "Bean"
     };
