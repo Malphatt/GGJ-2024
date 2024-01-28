@@ -16,7 +16,6 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> players = new List<GameObject>();
     [SerializeField] List<GameObject> winners = new List<GameObject>();
-    HashSet<GameObject> playerList = new HashSet<GameObject>();
 
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
@@ -44,20 +43,10 @@ public class gameManager : MonoBehaviour
         //Decrease Timer
         roundTimer -= Time.deltaTime;
         roundTimerText.text = roundTimer.ToString("F2");
+        players.Clear();
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            playerList.Add(player);
-        }
-
-        
-
-        //Remove any players who curHealth is 0
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (players[i].GetComponent<PlayerController>().curHealth <= 0)
-            {
-                players.Remove(players[i]);
-            }
+            players.Add(player);
         }
 
         //Check if timer is 0 or all players are dead
@@ -81,6 +70,13 @@ public class gameManager : MonoBehaviour
                 if (PhotonNetwork.IsMasterClient) {
                     pv.RPC("NewRound", RpcTarget.All, roundNumber);
                 }
+                foreach(GameObject player in players)
+                {
+                    if (pv.IsMine)
+                    {
+                        player.GetComponent<PlayerController>().Die();
+                    }
+                }
             }
         }
 
@@ -95,10 +91,14 @@ public class gameManager : MonoBehaviour
     [PunRPC]
     public void NewRound(int roundNum)
     {
-        players.Clear();
-        players = playerList.ToList<GameObject>();
         roundTimer = maxTime;
         roundNumberText.text = "Round: " + roundNum;
+
+        // Respawn all players
+        if (pv.IsMine)
+        {
+           // GameObject.FindGameObjectWithTag("playerManager");
+        }
     }
 
 }

@@ -7,6 +7,7 @@ using Cinemachine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using TMPro;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] GameObject scoreListPrefab;
     [SerializeField] GameObject[] accessories;
     [SerializeField] GameObject beanMaker;
+
+    PlayerManager playerManager;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
@@ -54,6 +57,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         pv = transform.GetComponent<PhotonView>();
+
+        playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     void Start()
@@ -211,7 +216,9 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void TakeDamage(float damage, GameObject other)
     {
         animator.SetBool("Damaged", true);
-        pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+        Vector3 velocity = (gameObject.transform.position - position) * 36f;
+        velocity = new Vector3(velocity.x, Mathf.Max(15f,velocity.y), velocity.z);
+        pv.RPC("RPC_TakeDamage", pv.Owner, damage,velocity);
     }
 
     void PlayerAccessories(bool[] enabledList)
@@ -241,15 +248,23 @@ public class PlayerController : MonoBehaviour, IDamagable
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage)
+    void RPC_TakeDamage(float damage, Vector3 velocity, PhotonMessageInfo info)
     {
-        if (!pv.IsMine)
-        {
-            return;
-        }
 
         curHealth -= damage;
         slider.value = curHealth;
+        rb.velocity += velocity;
+
+        if (curHealth <= 0)
+        {
+            Die();
+            PlayerManager.Find(info.Sender);
+        }
+    }
+
+    public void Die()
+    {
+        playerManager.Die();
     }
 
 }
