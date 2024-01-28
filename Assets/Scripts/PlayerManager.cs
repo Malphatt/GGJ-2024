@@ -6,11 +6,13 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
     GameObject controller;
+    int kills;
 
     private void Awake()
     {
@@ -44,5 +46,20 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Find(Player player)
     {
         return FindObjectsOfType<PlayerManager>().SingleOrDefault(x => x.PV.Owner == player);
+    }
+
+    public void GetKill()
+    {
+        PV.RPC(nameof(RPC_GetKill), PV.Owner);
+    }
+
+    [PunRPC]
+    void RPC_GetKill()
+    {
+        kills++;
+
+        Hashtable hash = new Hashtable();
+        hash.Add("kills", kills);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 }
