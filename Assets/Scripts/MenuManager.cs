@@ -6,6 +6,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
+    public GameObject Can;
     [SerializeField] menu[] menus;
 
     private void Awake()
@@ -20,6 +21,10 @@ public class MenuManager : MonoBehaviour
             if (menus[i].menuName == menuName)
             {
                 OpenMenu(menus[i]);
+                if(menuName == "Customise")
+                {
+                    Can.SetActive(true);
+                }
             }
             else if (menus[i].open)
             {
@@ -38,5 +43,10 @@ public class MenuManager : MonoBehaviour
         menuScript.Open();
 
 
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
