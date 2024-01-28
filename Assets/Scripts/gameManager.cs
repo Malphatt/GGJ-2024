@@ -68,6 +68,9 @@ public class gameManager : MonoBehaviour
                 //End Round
                 Debug.Log("Round Over");
                 roundNumber++;
+                if (PhotonNetwork.IsMasterClient) {
+                    pv.RPC("NewRound", RpcTarget.All, roundNumber);
+                }
             }
         }
 
@@ -82,11 +85,8 @@ public class gameManager : MonoBehaviour
     [PunRPC]
     public void NewRound(int roundNum)
     {
-        if (pv.IsMine)
-        {
-            roundTimer = maxTime;
-            roundNumberText.text = "Round: " + roundNumber;
-        }
+        roundTimer = maxTime;
+        roundNumberText.text = "Round: " + roundNum;
     }
 
 }
