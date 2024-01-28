@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37577042, g: 0.6143065, b: 0.86705476, a: 1}
+  m_IndirectSpecularColor: {r: 0.3757701, g: 0.6143082, b: 0.86705744, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -515,7 +515,6 @@ GameObject:
   - component: {fileID: 215416594}
   - component: {fileID: 215416593}
   - component: {fileID: 215416597}
-  - component: {fileID: 215416598}
   m_Layer: 5
   m_Name: Canvas / Game Manager
   m_TagString: Untagged

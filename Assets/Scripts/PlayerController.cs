@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     bool isRunning = false;
     bool isJumping = false;
 
-    float walkSpeed = 25.0f;
-    float runSpeed = 35.0f;
+    float walkSpeed = 20.0f;
+    float runSpeed = 30.0f;
     float jumpForce = 15.0f;
 
     float speed = 0.0f;
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
-        pv.RPC("RPC_PlayerAccessories",RpcTarget.OthersBuffered,Launcher.instance.accessories);
+        pv.RPC("RPC_PlayerAccessories", RpcTarget.OthersBuffered, Launcher.instance.accessories);
         PlayerAccessories(Launcher.instance.accessories);
         UpdatePlayerList();
     }
@@ -213,12 +213,20 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
+    public void Pickup(string pickupName)
+    {
+        if (pickupName == "knife")
+        {
+            
+        }
+    }
+
     public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
         animator.SetBool("Damaged", true);
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
-        velocity = new Vector3(velocity.x, Mathf.Max(15f,velocity.y), velocity.z);
-        pv.RPC("RPC_TakeDamage", pv.Owner, damage,velocity);
+        velocity = new Vector3(velocity.x, Mathf.Max(15f, velocity.y), velocity.z);
+        pv.RPC("RPC_TakeDamage", pv.Owner, damage, velocity);
     }
 
     void PlayerAccessories(bool[] enabledList)

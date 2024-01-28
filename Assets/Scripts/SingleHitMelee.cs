@@ -8,8 +8,8 @@ public class SingleHitMelee : Weapon
 
     public override void Use()
     {
-        Debug.Log("Punch");
-        animator.SetBool("Punch", true);
+        Debug.Log(itemInfo.itemName);
+        animator.SetBool(itemInfo.itemName, true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +19,7 @@ public class SingleHitMelee : Weapon
             if (!other.gameObject.GetComponent<PlayerController>().pv.IsMine)
             {
                 Debug.Log("Hit a player!" + other.gameObject.name);
-                other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage, other.gameObject,gameObject.transform.position);
+                other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage, other.gameObject, gameObject.transform.position);
             }
         }
     }
