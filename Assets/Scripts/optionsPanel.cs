@@ -21,10 +21,14 @@ public class optionsPanel : MonoBehaviour
         if (optionsPanelObject.activeSelf)
         {
             optionsPanelObject.SetActive(false);
+            //Set focus on game
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
             optionsPanelObject.SetActive(true);
+            //Set focus on UI
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     public void LeaveRoom()
