@@ -205,8 +205,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (pickupName == "knife")
         {
             weapon = knife;
-            fist.gameObject.SetActive(false);
-            knife.gameObject.SetActive(true);
+            pv.RPC("RPC_KnifeOn", RpcTarget.All);
         }
         else
         {
@@ -234,6 +233,16 @@ public class PlayerController : MonoBehaviour, IDamagable
         for (int i = 0; i < accessories.Length; i++)
         {
             accessories[i].SetActive(enabledList[i]);
+        }
+    }
+
+    [PunRPC]
+    void RPC_KnifeOn()
+    {
+        if (!pv.IsMine)
+        {
+            fist.gameObject.SetActive(false);
+            knife.gameObject.SetActive(true);
         }
     }
 
