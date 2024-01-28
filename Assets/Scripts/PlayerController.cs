@@ -239,11 +239,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     [PunRPC]
     void RPC_KnifeOn()
     {
-        if (!pv.IsMine)
-        {
-            fist.gameObject.SetActive(false);
-            knife.gameObject.SetActive(true);
-        }
+        fist.gameObject.SetActive(false);
+        knife.gameObject.SetActive(true);
     }
 
     [PunRPC]

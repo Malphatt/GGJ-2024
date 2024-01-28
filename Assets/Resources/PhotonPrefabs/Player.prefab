@@ -342,16 +342,16 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Damaged
   - Type: 4
-    SynchronizeType: 2
+    SynchronizeType: 1
     Name: Emote
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: fists
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: knife
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -1443,6 +1443,7 @@ MonoBehaviour:
   - {fileID: 5647902747649044712}
   - {fileID: 6290365945967127704}
   - {fileID: 2216164364142466507}
+  - {fileID: 12535331171092678}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
