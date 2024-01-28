@@ -43,4 +43,5 @@ public class Scoreboard : MonoBehaviourPunCallbacks
         Destroy(scoreboardPlayerDict[newPlayer].gameObject);
         scoreboardPlayerDict.Remove(newPlayer);
     }
+
 }
