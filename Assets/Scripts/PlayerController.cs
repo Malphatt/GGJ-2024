@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
-        velocity = new Vector3(velocity.x, 5f, velocity.z);
+        velocity = new Vector3(velocity.x, Mathf.Max(5f,velocity.y), velocity.z);
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage,velocity);
     }
 
