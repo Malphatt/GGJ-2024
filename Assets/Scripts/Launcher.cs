@@ -42,6 +42,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         "Bean"
     };
 
+    public bool[] accessories = new bool[8];
     // Start is called before the first frame update
     private void Awake()
     {
