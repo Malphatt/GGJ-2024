@@ -1458,6 +1458,8 @@ MonoBehaviour:
   pv: {fileID: 0}
   slider: {fileID: 7789210655614706557}
   glovesRenderer: {fileID: 166976447198522765}
+  scoreListContent: {fileID: 0}
+  scoreListPrefab: {fileID: 3574015831132103959, guid: 182c4fe04fe8f4a42b4de3b485ac6528, type: 3}
   accessories:
   - {fileID: 100618546387928121}
   - {fileID: 432935326642699424}

@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] Slider slider;
     [SerializeField] Renderer glovesRenderer;
 
+    [SerializeField] Transform scoreListContent;
+    [SerializeField] GameObject scoreListPrefab;
     [SerializeField] GameObject[] accessories;
     [SerializeField] GameObject beanMaker;
 
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     float cooldownNum = 0.7f;
     float cooldown = 0.0f;
 
-    public const float maxHealth = 10f;
+    const float maxHealth = 10f;
     public float curHealth = maxHealth;
 
     private void Awake()
@@ -79,6 +81,22 @@ public class PlayerController : MonoBehaviour, IDamagable
 
         pv.RPC("RPC_PlayerAccessories",RpcTarget.OthersBuffered,Launcher.instance.accessories);
         PlayerAccessories(Launcher.instance.accessories);
+        UpdatePlayerList();
+    }
+    public void UpdatePlayerList()
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+
+        for (int i = 1; i < scoreListContent.childCount; i++)
+        {
+            Destroy(scoreListContent.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Instantiate(scoreListPrefab, scoreListContent);
+            scoreListContent.GetChild(i + 1).gameObject.GetComponent<TMP_Text>().text = players[i].NickName + " - 0";
+        }
     }
     void Update()
     {
@@ -93,10 +111,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
-        if (slider != null)
-        {
-            slider.value = curHealth;
-        }
+        slider.value = curHealth;
         if (curHealth <= 0 || transform.position.y < 15)
         {
             Die();
@@ -239,15 +254,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         curHealth -= damage;
         slider.value = curHealth;
         rb.velocity += velocity;
-        Debug.Log("Took damage " + damage);
-        Debug.Log(curHealth);
 
         if (curHealth <= 0)
         {
-            
-            PlayerManager.Find(info.Sender).GetKill();
             Die();
-            
+            PlayerManager.Find(info.Sender).GetKill();
         }
     }
 
