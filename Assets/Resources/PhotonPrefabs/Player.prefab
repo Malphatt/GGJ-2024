@@ -1342,7 +1342,7 @@ MonoBehaviour:
   CameraFacing: {fileID: 6231612915720412564}
   weapon: {fileID: 8868485498290723142}
   playerObject: {fileID: 407563721675621523}
-  animator: {fileID: 0}
+  animator: {fileID: 5364170827801074865}
   curHealth: 200
 --- !u!114 &1874578346977804346
 MonoBehaviour:
