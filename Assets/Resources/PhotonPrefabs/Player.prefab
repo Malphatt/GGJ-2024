@@ -1206,6 +1206,7 @@ MonoBehaviour:
   CameraFacing: {fileID: 6231612915720412564}
   weapon: {fileID: 8868485498290723142}
   playerObject: {fileID: 407563721675621523}
+  curHealth: 200
 --- !u!114 &1874578346977804346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1918,7 +1919,7 @@ MonoBehaviour:
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 200
+    m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -1942,7 +1943,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 200
+    m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
