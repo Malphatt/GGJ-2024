@@ -1,5 +1,7 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class gameManager : MonoBehaviour
 {
     [SerializeField] int roundNumber;
     [SerializeField] float roundTimer;
+    PhotonView pv;
     
     [SerializeField] int maxRounds = 3;
     [SerializeField] float maxTime = 180f;
@@ -16,30 +19,34 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
-    
+
+
+    private void Awake()
+    {
+        pv = transform.GetComponent<PhotonView>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         roundNumber = 1;
-        roundTimer = maxTime;
-        roundNumberText.text = "Round: " + roundNumber;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            pv.RPC("NewRound", RpcTarget.All, roundNumber);
+        }
     }
 
     // FixedUpdate
     void FixedUpdate()
     {
+
         //Decrease Timer
         roundTimer -= Time.deltaTime;
         roundTimerText.text = roundTimer.ToString("F2");
-        
-
-        //Remove any players who curHealth is 0
-        for (int i = 0; i < players.Count; i++)
+        players.Clear();
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (players[i].GetComponent<PlayerController>().curHealth <= 0)
-            {
-                players.Remove(players[i]);
-            }
+            players.Add(player);
         }
 
         //Check if timer is 0 or all players are dead
@@ -60,8 +67,16 @@ public class gameManager : MonoBehaviour
                 //End Round
                 Debug.Log("Round Over");
                 roundNumber++;
-                roundTimer = maxTime;
-                roundNumberText.text = "Round: " + roundNumber;
+                if (PhotonNetwork.IsMasterClient) {
+                    pv.RPC("NewRound", RpcTarget.All, roundNumber);
+                }
+                foreach(GameObject player in players)
+                {
+                    if (pv.IsMine)
+                    {
+                        player.GetComponent<PlayerController>().Die();
+                    }
+                }
             }
         }
 
@@ -72,4 +87,18 @@ public class gameManager : MonoBehaviour
         }
 
     }
+
+    [PunRPC]
+    public void NewRound(int roundNum)
+    {
+        roundTimer = maxTime;
+        roundNumberText.text = "Round: " + roundNum;
+
+        // Respawn all players
+        if (pv.IsMine)
+        {
+           // GameObject.FindGameObjectWithTag("playerManager");
+        }
+    }
+
 }
