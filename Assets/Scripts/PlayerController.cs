@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void PlayerAccessories(bool[] enabledList)
     {
-        if (!pv.IsMine)
+        if (pv.IsMine)
         {
             return;
         }
@@ -225,15 +225,14 @@ public class PlayerController : MonoBehaviour, IDamagable
     [PunRPC]
     void RPC_PlayerAccessories(bool[] enabledList)
     {
-        if (!pv.IsMine)
+        if (pv.IsMine)
         {
-            return;
+            for (int i = 0; i < accessories.Length; i++)
+            {
+                accessories[i].SetActive(enabledList[i]);
+            }
         }
 
-        for (int i = 0; i < accessories.Length; i++)
-        {
-            accessories[i].SetActive(enabledList[i]);
-        }
     }
 
     [PunRPC]
