@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     PhotonView PV;
     GameObject controller;
     int kills;
+    static string winner;
 
     private void Awake()
     {
@@ -65,11 +66,13 @@ public class PlayerManager : MonoBehaviour
 
     public void EndGame()
     {
-
+        PV.RPC("RPC_EndGame", RpcTarget.All);
     }
     [PunRPC]
     void RPC_EndGame(PhotonMessageInfo info)
     {
-        string winner = info.Sender.NickName;
+        winner = info.Sender.NickName;
+        Debug.Log(winner);
+        PhotonNetwork.LoadLevel(2);
     }
 }

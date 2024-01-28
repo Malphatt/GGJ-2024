@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     float cooldownNum = 0.7f;
     float cooldown = 0.0f;
 
-    const float maxHealth = 200f;
+    const float maxHealth = 10f;
     public float curHealth = maxHealth;
 
     private void Awake()

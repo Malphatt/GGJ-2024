@@ -6352,6 +6352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scoreboard
       objectReference: {fileID: 0}
+    - target: {fileID: 6833895005719362615, guid: d27687763f3493a41bd5b33471e53b5b, type: 3}
+      propertyPath: m_text
+      value: Kills
+      objectReference: {fileID: 0}
     - target: {fileID: 8469463292739918783, guid: d27687763f3493a41bd5b33471e53b5b, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
