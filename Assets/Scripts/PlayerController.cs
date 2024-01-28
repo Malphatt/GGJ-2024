@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         pv = transform.GetComponent<PhotonView>();
-        SetSensitivity(1f);
     }
 
     void Start()
@@ -72,7 +71,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
-        pv.RPC("RPC_PlayerAccessories",RpcTarget.All,Launcher.instance.accessories);
+        pv.RPC("RPC_PlayerAccessories",RpcTarget.OthersBuffered,Launcher.instance.accessories);
+        PlayerAccessories(Launcher.instance.accessories);
         UpdatePlayerList();
     }
     public void UpdatePlayerList()
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     [PunRPC]
     void RPC_PlayerAccessories(bool[] enabledList)
     {
-        if (pv.IsMine)
+        if (!pv.IsMine)
         {
             for (int i = 0; i < accessories.Length; i++)
             {
