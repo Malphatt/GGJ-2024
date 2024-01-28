@@ -153,6 +153,7 @@ Transform:
   - {fileID: 957517184390735386}
   - {fileID: 733709213547929219}
   - {fileID: 1809574753706287578}
+  - {fileID: 8311048404493746316}
   m_Father: {fileID: 7990984613726726048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6290365945967127704
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   - {fileID: 2888412021303844485}
   - {fileID: 1602350321553387048}
   - {fileID: 1795227398178338376}
+  beanMaker: {fileID: 9216051494863135629}
   Camera: {fileID: 1227934463699759492}
   freeLookCamera: {fileID: 2427354005132731457}
   CameraFacing: {fileID: 6231612915720412564}
@@ -2750,6 +2752,52 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &9216051494863135629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8311048404493746316}
+  - component: {fileID: 2641552386568403189}
+  m_Layer: 0
+  m_Name: beanMaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8311048404493746316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216051494863135629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2460753116670483790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2641552386568403189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216051494863135629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c811de90f7d75f24480c335c71021a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beanPrefab: {fileID: 7883988165230384344, guid: 74c5847a296090e4496a8d9412d49320, type: 3}
+  numBeans: 100
 --- !u!1001 &775588575110250993
 PrefabInstance:
   m_ObjectHideFlags: 0
