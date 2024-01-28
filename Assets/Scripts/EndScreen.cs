@@ -9,5 +9,14 @@ public class EndScreen : MonoBehaviour
     private void Awake()
     {
         winner.text = PlayerManager.winner + " Wins!!";
+
+        //After 10 seconds, return to menu
+        StartCoroutine(ReturnToMenu());
+    }
+
+    IEnumerator ReturnToMenu()
+    {
+        yield return new WaitForSeconds(10);
+        Photon.Pun.PhotonNetwork.LoadLevel(0);
     }
 }
