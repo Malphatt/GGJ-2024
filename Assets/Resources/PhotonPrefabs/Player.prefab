@@ -1494,6 +1494,9 @@ MonoBehaviour:
   fist: {fileID: 8868485498290723142}
   knife: {fileID: 2585843924493199890}
   playerObject: {fileID: 407563721675621523}
+  hit: {fileID: 8300000, guid: 9030fb32fda5e2b4785550c700cc0aba, type: 3}
+  punch: {fileID: 8300000, guid: 6509724eaab84f24cbd20160283ce50a, type: 3}
+  jump: {fileID: 8300000, guid: a5db68b1319dfab42a50edbb81a2ba26, type: 3}
   animator: {fileID: 5364170827801074865}
   curHealth: 10
 --- !u!114 &1874578346977804346
