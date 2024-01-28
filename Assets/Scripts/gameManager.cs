@@ -9,31 +9,29 @@ public class gameManager : MonoBehaviour
     [SerializeField] float roundTimer;
     
     [SerializeField] int maxRounds = 3;
-    [SerializeField] float maxTime = 60f;
+    [SerializeField] float maxTime = 180f;
 
     [SerializeField] List<GameObject> players = new List<GameObject>();
-    
+    [SerializeField] List<GameObject> winners = new List<GameObject>();
+
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
-
-    [SerializeField] GameObject roundWinnerTextObj;
-    [SerializeField] TMP_Text roundWinnerText;
-    
     
     // Start is called before the first frame update
     void Start()
     {
         roundNumber = 1;
         roundTimer = maxTime;
-        players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        roundNumberText.text = "Round: " + roundNumber;
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate
+    void FixedUpdate()
     {
         //Decrease Timer
         roundTimer -= Time.deltaTime;
-        roundTimerText.text = "Time: " + roundTimer.ToString("F2");
+        roundTimerText.text = roundTimer.ToString("F2");
+        
 
         //Remove any players who curHealth is 0
         for (int i = 0; i < players.Count; i++)
@@ -43,7 +41,7 @@ public class gameManager : MonoBehaviour
                 players.Remove(players[i]);
             }
         }
-        
+
         //Check if timer is 0 or all players are dead
         if (roundTimer <= 0 || players.Count <= 1)
         {
@@ -52,6 +50,10 @@ public class gameManager : MonoBehaviour
             {
                 //End Game
                 Debug.Log("Game Over");
+
+                //Disable the timer
+                roundTimerText.text = "";
+                roundNumberText.text = "";
             }
             else
             {
@@ -62,5 +64,12 @@ public class gameManager : MonoBehaviour
                 roundNumberText.text = "Round: " + roundNumber;
             }
         }
+
+        //Add the winners name to a list
+        for (int i = 0; i < players.Count; i++)
+        {
+            winners.Add(players[i]);
+        }
+
     }
 }
