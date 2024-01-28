@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
-        PlayerAccessories(Launcher.instance.accessories);
+        pv.RPC("RPC_PlayerAccessories",RpcTarget.All,Launcher.instance.accessories);
         UpdatePlayerList();
     }
     public void UpdatePlayerList()
@@ -211,6 +211,11 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void PlayerAccessories(bool[] enabledList)
     {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+
         for (int i = 0; i < accessories.Length; i++)
         {
             accessories[i].SetActive(enabledList[i]);
