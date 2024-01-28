@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Rigidbody rb;
     Vector2 moveInput;
     public PhotonView pv;
-    [SerializeField] Slider slider;
+    [SerializeField] TMP_Text text;
     [SerializeField] Renderer glovesRenderer;
 
     [SerializeField] GameObject[] accessories;
@@ -80,8 +80,6 @@ public class PlayerController : MonoBehaviour, IDamagable
             Destroy(freeLookCamera);
             Destroy(rb);
         }
-        slider.maxValue = maxHealth;
-        slider.value = maxHealth;
 
         pv.RPC("RPC_PlayerAccessories", RpcTarget.OthersBuffered, Launcher.instance.accessories);
         PlayerAccessories(Launcher.instance.accessories);
@@ -99,10 +97,8 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
-        if (slider != null)
-        {
-            slider.value = curHealth;
-        }
+
+        text.text = "Health : " + curHealth.ToString();
         if (curHealth <= 0 || transform.position.y < 15)
         {
             Die();
@@ -272,7 +268,6 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
 
         curHealth -= damage;
-        slider.value = curHealth;
         rb.velocity += velocity;
         Debug.Log("Took damage " + damage);
         Debug.Log(curHealth);

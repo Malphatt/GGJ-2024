@@ -24,7 +24,7 @@ public class ScoreboardItem : MonoBehaviourPunCallbacks
     {
         if(player.CustomProperties.TryGetValue("kills",out object kills))
         {
-            if ((int)kills > 0)
+            if ((int)kills > 9)
             {
                 PlayerManager.winner = player.NickName;
                 PlayerManager.Find(player).EndGame();
