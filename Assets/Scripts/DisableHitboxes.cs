@@ -12,10 +12,10 @@ public class DisableHitboxes : MonoBehaviour
         switch (hitboxName)
         {
             case "fists":
-                fists.enabled = false;
+                // fists.enabled = false;
                 break;
             case "knife":
-                knife.enabled = false;
+                // knife.enabled = false;
                 break;
             default:
                 Debug.Log("Invalid hitbox name");
