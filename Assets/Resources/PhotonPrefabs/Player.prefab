@@ -1474,7 +1474,7 @@ MonoBehaviour:
   weapon: {fileID: 8868485498290723142}
   playerObject: {fileID: 407563721675621523}
   animator: {fileID: 5364170827801074865}
-  curHealth: 200
+  curHealth: 10
 --- !u!114 &1874578346977804346
 MonoBehaviour:
   m_ObjectHideFlags: 0
