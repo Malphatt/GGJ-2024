@@ -1495,7 +1495,7 @@ MonoBehaviour:
   knife: {fileID: 2585843924493199890}
   playerObject: {fileID: 407563721675621523}
   animator: {fileID: 5364170827801074865}
-  curHealth: 10
+  curHealth: 200
 --- !u!114 &1874578346977804346
 MonoBehaviour:
   m_ObjectHideFlags: 0
