@@ -19,7 +19,7 @@
                     "type": "Value",
                     "id": "6bd49278-ad30-4986-aa2c-6c2458dcd358",
                     "expectedControlType": "Vector2",
-                    "processors": "ScaleVector2(x=0.1,y=0.1)",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -200,7 +200,7 @@
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.1,y=0.1)",
                     "groups": ";Keyboard&Mouse;Touch",
                     "action": "Look",
                     "isComposite": false,
@@ -285,11 +285,44 @@
                 },
                 {
                     "name": "",
+                    "id": "e9caf7d4-9cb9-441c-ab8b-5e3ba196ab6e",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07a51a7d-b937-43d1-b164-040f22736761",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c13eb98f-4a16-4d28-b355-bdb91c2b32d6",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb0f3233-89f0-4881-8165-7c4947c69e03",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false

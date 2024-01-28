@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 215416594}
   - component: {fileID: 215416593}
   - component: {fileID: 215416597}
+  - component: {fileID: 215416598}
   m_Layer: 5
   m_Name: Canvas / Game Manager
   m_TagString: Untagged
