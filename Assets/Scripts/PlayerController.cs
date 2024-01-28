@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
-    public void TakeDamage(float damage, GameObject other)
+    public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
         animator.SetBool("Damaged", true);
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         if (curHealth <= 0)
         {
             Die();
-            PlayerManager.Find(info.Sender);
+            PlayerManager.Find(info.Sender).GetKill();
         }
     }
 
