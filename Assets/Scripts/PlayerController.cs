@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void PlayerAccessories(bool[] enabledList)
     {
-        if (pv.IsMine)
+        if (!pv.IsMine)
         {
             return;
         }
