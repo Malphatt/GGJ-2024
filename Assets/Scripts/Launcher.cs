@@ -130,7 +130,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         MenuManager.instance.OpenMenu("loading");
-
     }
 
     public override void OnLeftRoom()
