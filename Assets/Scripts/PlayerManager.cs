@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     PhotonView PV;
     GameObject controller;
     int kills;
-    static string winner;
+    public static string winner;
 
     private void Awake()
     {
