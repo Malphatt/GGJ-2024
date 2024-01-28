@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPC_TakeDamage
   - RPC_PlayerAccessories
+  - NewRound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

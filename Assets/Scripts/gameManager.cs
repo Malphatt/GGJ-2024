@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> players = new List<GameObject>();
     [SerializeField] List<GameObject> winners = new List<GameObject>();
+    HashSet<GameObject> playerList = new HashSet<GameObject>();
 
     [SerializeField] TMP_Text roundTimerText;
     [SerializeField] TMP_Text roundNumberText;
@@ -29,16 +31,24 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         roundNumber = 1;
-        roundTimer = maxTime;
-        roundNumberText.text = "Round: " + roundNumber;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            pv.RPC("NewRound", RpcTarget.All, roundNumber);
+        }
     }
 
     // FixedUpdate
     void FixedUpdate()
     {
+
         //Decrease Timer
         roundTimer -= Time.deltaTime;
         roundTimerText.text = roundTimer.ToString("F2");
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            playerList.Add(player);
+        }
+
         
 
         //Remove any players who curHealth is 0
@@ -85,6 +95,8 @@ public class gameManager : MonoBehaviour
     [PunRPC]
     public void NewRound(int roundNum)
     {
+        players.Clear();
+        players = playerList.ToList<GameObject>();
         roundTimer = maxTime;
         roundNumberText.text = "Round: " + roundNum;
     }
