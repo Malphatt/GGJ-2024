@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: 
   itemName: knife
-  weaponDamage: 50
+  weaponDamage: 40
