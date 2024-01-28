@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     PhotonView PV;
     GameObject controller;
     int kills;
+    public static string winner;
 
     private void Awake()
     {
@@ -61,5 +62,17 @@ public class PlayerManager : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    public void EndGame()
+    {
+        PV.RPC("RPC_EndGame", RpcTarget.All);
+    }
+    [PunRPC]
+    void RPC_EndGame(PhotonMessageInfo info)
+    {
+        winner = info.Sender.NickName;
+        Debug.Log(winner);
+        PhotonNetwork.LoadLevel(2);
     }
 }

@@ -91,13 +91,9 @@ public class gameManager : MonoBehaviour
     [PunRPC]
     public void NewRound(int roundNum)
     {
-        roundTimer = maxTime;
-        roundNumberText.text = "Round: " + roundNum;
-
-        // Respawn all players
         if (pv.IsMine)
         {
-           // GameObject.FindGameObjectWithTag("playerManager");
+
         }
     }
 

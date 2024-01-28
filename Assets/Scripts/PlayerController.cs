@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] Slider slider;
     [SerializeField] Renderer glovesRenderer;
 
-    [SerializeField] Transform scoreListContent;
-    [SerializeField] GameObject scoreListPrefab;
     [SerializeField] GameObject[] accessories;
     [SerializeField] GameObject beanMaker;
 
@@ -28,6 +26,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
     public Item weapon;
+    public Item fist;
+    public Item knife;
     public GameObject playerObject;
 
     public Animator animator;
@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     bool isRunning = false;
     bool isJumping = false;
 
-    float walkSpeed = 25.0f;
-    float runSpeed = 35.0f;
+    float walkSpeed = 20.0f;
+    float runSpeed = 30.0f;
     float jumpForce = 15.0f;
 
     float speed = 0.0f;
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     float cooldownNum = 0.7f;
     float cooldown = 0.0f;
 
-    const float maxHealth = 200f;
+    public const float maxHealth = 10f;
     public float curHealth = maxHealth;
 
     private void Awake()
@@ -79,24 +79,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
-        pv.RPC("RPC_PlayerAccessories",RpcTarget.OthersBuffered,Launcher.instance.accessories);
+        pv.RPC("RPC_PlayerAccessories", RpcTarget.OthersBuffered, Launcher.instance.accessories);
         PlayerAccessories(Launcher.instance.accessories);
-        UpdatePlayerList();
-    }
-    public void UpdatePlayerList()
-    {
-        Player[] players = PhotonNetwork.PlayerList;
-
-        for (int i = 1; i < scoreListContent.childCount; i++)
-        {
-            Destroy(scoreListContent.GetChild(i).gameObject);
-        }
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Instantiate(scoreListPrefab, scoreListContent);
-            scoreListContent.GetChild(i + 1).gameObject.GetComponent<TMP_Text>().text = players[i].NickName + " - 0";
-        }
     }
     void Update()
     {
@@ -111,7 +95,10 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
-        slider.value = curHealth;
+        if (slider != null)
+        {
+            slider.value = curHealth;
+        }
         if (curHealth <= 0 || transform.position.y < 15)
         {
             Die();
@@ -213,12 +200,29 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
+    public void Pickup(string pickupName)
+    {
+        if (pickupName == "knife")
+        {
+            weapon = knife;
+            fist.gameObject.SetActive(false);
+            knife.gameObject.SetActive(true);
+            // weapon
+        }
+        else
+        {
+            weapon = fist;
+            fist.gameObject.SetActive(true);
+            knife.gameObject.SetActive(false);
+        }
+    }
+
     public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
         animator.SetBool("Damaged", true);
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
-        velocity = new Vector3(velocity.x, Mathf.Max(15f,velocity.y), velocity.z);
-        pv.RPC("RPC_TakeDamage", pv.Owner, damage,velocity);
+        velocity = new Vector3(velocity.x, Mathf.Max(15f, velocity.y), velocity.z);
+        pv.RPC("RPC_TakeDamage", pv.Owner, damage, velocity);
     }
 
     void PlayerAccessories(bool[] enabledList)
@@ -254,11 +258,15 @@ public class PlayerController : MonoBehaviour, IDamagable
         curHealth -= damage;
         slider.value = curHealth;
         rb.velocity += velocity;
+        Debug.Log("Took damage " + damage);
+        Debug.Log(curHealth);
 
         if (curHealth <= 0)
         {
-            Die();
+
             PlayerManager.Find(info.Sender).GetKill();
+            Die();
+
         }
     }
 

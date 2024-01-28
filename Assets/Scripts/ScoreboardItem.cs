@@ -24,6 +24,10 @@ public class ScoreboardItem : MonoBehaviourPunCallbacks
     {
         if(player.CustomProperties.TryGetValue("kills",out object kills))
         {
+            if ((int)kills > 0)
+            {
+                PlayerManager.Find(player).EndGame();
+            }
             scoreText.text = kills.ToString();
         }
     }
