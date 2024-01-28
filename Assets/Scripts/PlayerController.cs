@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     [SerializeField] Transform scoreListContent;
     [SerializeField] GameObject scoreListPrefab;
+    [SerializeField] GameObject[] accessories;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         pv = transform.GetComponent<PhotonView>();
+        SetSensitivity(1f);
     }
 
     void Start()
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.maxValue = maxHealth;
         slider.value = maxHealth;
 
+        PlayerAccessories(Launcher.instance.accessories);
         UpdatePlayerList();
     }
     public void UpdatePlayerList()
@@ -196,9 +199,36 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
     }
 
+    public void SetSensitivity(float sensitivity)
+    {
+        
+    }
+
     public void TakeDamage(float damage, GameObject other)
     {
         pv.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    void PlayerAccessories(bool[] enabledList)
+    {
+        for (int i = 0; i < accessories.Length; i++)
+        {
+            accessories[i].SetActive(enabledList[i]);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlayerAccessories(bool[] enabledList)
+    {
+        if (!pv.IsMine)
+        {
+            return;
+        }
+
+        for (int i = 0; i < accessories.Length; i++)
+        {
+            accessories[i].SetActive(enabledList[i]);
+        }
     }
 
     [PunRPC]
