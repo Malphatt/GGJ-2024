@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         pv = transform.GetComponent<PhotonView>();
+        SetSensitivity(1f);
     }
 
     void Start()
@@ -193,6 +194,11 @@ public class PlayerController : MonoBehaviour, IDamagable
             }
 
         }
+    }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        
     }
 
     public void TakeDamage(float damage, GameObject other)
