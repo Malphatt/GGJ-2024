@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         slider.value = curHealth;
         if (curHealth <= 0)
         {
+            rb.constraints = RigidbodyConstraints.None;
             beanMaker.SetActive(true);
         }
         if (!pv.IsMine) { return; }
