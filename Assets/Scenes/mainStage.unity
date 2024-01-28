@@ -623,10 +623,9 @@ MonoBehaviour:
   maxRounds: 3
   maxTime: 60
   players: []
+  winners: []
   roundTimerText: {fileID: 236125078}
   roundNumberText: {fileID: 1329370640}
-  roundWinnerTextObj: {fileID: 0}
-  roundWinnerText: {fileID: 0}
 --- !u!1 &236125077
 GameObject:
   m_ObjectHideFlags: 0
@@ -6108,7 +6107,7 @@ Transform:
   m_GameObject: {fileID: 1787050064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -189.09, y: 36.96, z: 87.05}
+  m_LocalPosition: {x: -189.09, y: 35.42, z: 86.75}
   m_LocalScale: {x: 2.0186605, y: 2.0186605, z: 5.163128}
   m_ConstrainProportionsScale: 0
   m_Children: []
