@@ -102,7 +102,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(players[i]);
         }
 
-        if (players.Length >= 2)
+        if (players.Length >= 1)
         {
             startButton.SetActive(PhotonNetwork.IsMasterClient);
         }
