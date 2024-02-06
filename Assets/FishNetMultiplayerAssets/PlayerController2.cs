@@ -8,29 +8,27 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using TMPro;
 using System.Linq;
-using FishNet.Object;
-using FishNet.Component.Animating;
 
-public class FishPlayerController : NetworkBehaviour, IDamagable
+public class PlayerController2 : MonoBehaviour, IDamagable
 {
-    [SerializeField] Rigidbody rb;
+    private Rigidbody rb;
     Vector2 moveInput;
-
+    public PhotonView pv;
     [SerializeField] TMP_Text text;
     [SerializeField] Renderer glovesRenderer;
+
     [SerializeField] GameObject[] accessories;
     [SerializeField] GameObject beanMaker;
-    private NetworkAnimator networkAnimator;
 
+    PlayerManager playerManager;
 
     public GameObject Camera;
     public GameObject freeLookCamera;
     public GameObject CameraFacing;
-    public GameObject playerObject;
-
     public Item weapon;
     public Item fist;
     public Item knife;
+    public GameObject playerObject;
 
     public AudioClip hit;
     public AudioClip punch;
@@ -60,46 +58,47 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
     public const float maxHealth = 10f;
     public float curHealth = maxHealth;
 
-    bool isMine = true;
-
     private void Awake()
     {
-        networkAnimator = GetComponent<NetworkAnimator>();
-    }
+        pv = transform.GetComponent<PhotonView>();
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (!base.IsOwner)
-        {
-            Destroy(Camera);
-            Destroy(CameraFacing);
-            Destroy(freeLookCamera);
-            Destroy(rb);
-            isMine = false;
-            Debug.Log("Not Owner");
-            return;
-        }
-        speed = walkSpeed;
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        //playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
     }
-    
 
     void Start()
     {
+        rb = transform.GetComponent<Rigidbody>();
+        speed = walkSpeed;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         glovesRenderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+
+        if (!pv.IsMine)
+        {
+            Destroy(Camera);
+            Destroy(freeLookCamera);
+            Destroy(rb);
+        }
+
+        pv.RPC("RPC_PlayerAccessories", RpcTarget.OthersBuffered, Launcher.instance.accessories);
+        PlayerAccessories(Launcher.instance.accessories);
     }
     void Update()
     {
-        if (!isMine) { return; }
-        cooldown += Time.deltaTime;
+        if (!pv.IsMine) { return; }
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
     }
 
     void FixedUpdate()
     {
-        if (!isMine) { return; }
+
+        text.text = "Health : " + curHealth.ToString();
+        if (curHealth <= 0 || transform.position.y < 15)
+        {
+            Die();
+        }
+        if (!pv.IsMine) { return; }
         // if the player is moving too fast, slow them down
         if (isRunning && rb.velocity.magnitude > maxRunSpeed)
         {
@@ -176,6 +175,7 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
         if (context.phase == InputActionPhase.Started)
         {
             //Play sfx
+            GetComponent<AudioSource>().PlayOneShot(jump);
             isJumping = true;
         }
         else if (context.phase == InputActionPhase.Canceled)
@@ -199,25 +199,87 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
         }
     }
 
+    public void Pickup(string pickupName)
+    {
+        if (pickupName == "knife")
+        {
+            weapon = knife;
+            pv.RPC("RPC_KnifeOn", RpcTarget.All);
+        }
+        else
+        {
+            weapon = fist;
+            fist.gameObject.SetActive(true);
+            knife.gameObject.SetActive(false);
+        }
+    }
+
     public void TakeDamage(float damage, GameObject other, Vector3 position)
     {
-        networkAnimator.Play("Armature_Lid Moving");
+        animator.SetBool("Damaged", true);
         Vector3 velocity = (gameObject.transform.position - position) * 36f;
         velocity = new Vector3(velocity.x, Mathf.Max(15f, velocity.y), velocity.z);
+        pv.RPC("RPC_TakeDamage", pv.Owner, damage, velocity);
 
         //Play sfx
         GetComponent<AudioSource>().PlayOneShot(hit);
     }
+
     void PlayerAccessories(bool[] enabledList)
     {
+        if (!pv.IsMine)
+        {
+            return;
+        }
 
         for (int i = 0; i < accessories.Length; i++)
         {
             accessories[i].SetActive(enabledList[i]);
         }
     }
+
+    [PunRPC]
+    void RPC_KnifeOn()
+    {
+        fist.gameObject.SetActive(false);
+        knife.gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void RPC_PlayerAccessories(bool[] enabledList)
+    {
+        if (!pv.IsMine)
+        {
+            for (int i = 0; i < accessories.Length; i++)
+            {
+                accessories[i].SetActive(enabledList[i]);
+            }
+        }
+
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage, Vector3 velocity, PhotonMessageInfo info)
+    {
+
+        curHealth -= damage;
+        rb.velocity += velocity;
+        Debug.Log("Took damage " + damage);
+        Debug.Log(curHealth);
+
+        if (curHealth <= 0)
+        {
+
+            PlayerManager.Find(info.Sender).GetKill();
+            Die();
+
+        }
+    }
+
     public void Die()
     {
+        playerManager.Die();
+        beanMaker.SetActive(true);
         rb.constraints = RigidbodyConstraints.None;
     }
 

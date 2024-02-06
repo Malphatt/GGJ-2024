@@ -1,3 +1,4 @@
+using FishNet.Component.Animating;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,12 @@ using UnityEngine;
 public class SingleHitMelee : Weapon
 {
     public Animator animator;
+    public NetworkAnimator networkAnimator;
 
     public override void Use()
     {
         Debug.Log(itemInfo.itemName);
-        animator.SetBool(itemInfo.itemName, true);
+        networkAnimator.Play(itemInfo.itemName);
     }
 
     private void OnTriggerEnter(Collider other)
