@@ -10,6 +10,7 @@ using TMPro;
 using System.Linq;
 using FishNet.Object;
 using FishNet.Component.Animating;
+using FishNet.Connection;
 
 public class FishPlayerController : NetworkBehaviour, IDamagable
 {
@@ -60,7 +61,7 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
     public const float maxHealth = 10f;
     public float curHealth = maxHealth;
 
-    bool isMine = true;
+    public bool isMine = true;
 
     private void Awake()
     {
@@ -81,6 +82,7 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
             return;
         }
         speed = walkSpeed;
+        Camera.SetActive(true);
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
@@ -94,6 +96,7 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
     {
         if (!isMine) { return; }
         cooldown += Time.deltaTime;
+        text.text = "Health: " + curHealth.ToString();
         CameraFacing.transform.rotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
     }
 
@@ -191,6 +194,8 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
             if (cooldown > cooldownNum)
             {
                 weapon.Use();
+                Debug.Log(weapon.itemInfo.itemName);
+                animator.SetBool(weapon.itemInfo.itemName,true);
                 cooldown = 0f;
 
                 //Play sfx
@@ -207,7 +212,18 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
 
         //Play sfx
         GetComponent<AudioSource>().PlayOneShot(hit);
+
+        RpcTakeDamage(base.Owner, damage);
     }
+
+    [TargetRpc]
+    private void RpcTakeDamage(NetworkConnection conn, float damage)
+    {
+        //This might be something you only want the owner to be aware of.
+        Debug.Log(damage);
+        curHealth -= damage;
+    }
+
     void PlayerAccessories(bool[] enabledList)
     {
 
@@ -220,5 +236,19 @@ public class FishPlayerController : NetworkBehaviour, IDamagable
     {
         rb.constraints = RigidbodyConstraints.None;
     }
-
+    public void Pickup(string pickupName)
+    {
+        if (pickupName == "knife")
+        {
+            weapon = knife;
+            fist.gameObject.SetActive(false);
+            knife.gameObject.SetActive(true);
+        }
+        else
+        {
+            weapon = fist;
+            fist.gameObject.SetActive(true);
+            knife.gameObject.SetActive(false);
+        }
+    }
 }

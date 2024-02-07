@@ -11,14 +11,14 @@ public class SingleHitMelee : Weapon
     public override void Use()
     {
         Debug.Log(itemInfo.itemName);
-        networkAnimator.Play(itemInfo.itemName);
+        //animator.SetBool(itemInfo.itemName,true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (!other.gameObject.GetComponent<PlayerController>().pv.IsMine)
+            if (!other.gameObject.GetComponent<FishPlayerController>().isMine)
             {
                 Debug.Log("Hit a player!" + other.gameObject.name);
                 other.gameObject.GetComponent<IDamagable>()?.TakeDamage(((WeaponInfo)itemInfo).weaponDamage, other.gameObject, gameObject.transform.position);

@@ -10,7 +10,7 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().Pickup(pickupName);
+            other.GetComponent<FishPlayerController>().Pickup(pickupName);
             Destroy(gameObject);
         }
     }
